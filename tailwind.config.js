@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -7,7 +6,6 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,
@@ -51,6 +49,14 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Define colores específicos para modo oscuro
+        dark: {
+          background: "#121212",
+          foreground: "#e0e0e0",
+          primary: "#bb86fc",
+          secondary: "#03dac6",
+          muted: "#1f1f1f",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -74,4 +80,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
