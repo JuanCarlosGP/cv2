@@ -12,6 +12,36 @@ import { RESUME_DATA } from "@/data/resume-data";
 import { ProjectCard } from "@/components/project-card";
 import { metadata } from "@/app/metadata"; // Importa el metadata
 
+// Función para mostrar correctamente las descripciones con formato
+function formatDescription(text: string) {
+  // Divide el texto en secciones por proyecto o por párrafos principales
+  const sections = text.split('\n\n');
+  
+  return (
+    <div className="space-y-2">
+      {sections.map((section, idx) => {
+        // Si es un encabezado de proyecto
+        if (section.startsWith('Proyecto')) {
+          return <h5 key={`h-${idx}`} className="font-semibold mt-4 mb-2">{section}</h5>;
+        }
+        // Si es un elemento de lista con viñeta
+        else if (section.startsWith('•')) {
+          return (
+            <div key={`li-${idx}`} className="flex space-x-2 mb-1.5">
+              <span className="text-gray-500">•</span>
+              <span>{section.substring(1).trim()}</span>
+            </div>
+          );
+        }
+        // Párrafo normal
+        else {
+          return <p key={`p-${idx}`} className="mb-2">{section}</p>;
+        }
+      })}
+    </div>
+  );
+}
+
 export default function Page() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -144,8 +174,8 @@ export default function Page() {
                     {work.title}
                   </h4>
                 </CardHeader>
-                <CardContent className="mt-2 text-xs text-black dark:text-dark-foreground print:text-[10px]">
-                  {work.description}
+                <CardContent className="mt-2 text-sm text-black dark:text-dark-foreground print:text-[11px]">
+                  <div>{formatDescription(work.description)}</div>
                 </CardContent>
               </Card>
             );
